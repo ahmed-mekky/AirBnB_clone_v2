@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
         if len(args) > 1:
             for i in range(1, len(args)):
-                if re.match(r'[a-zA-Z]*="[a-zA-Z]*"', args[i]):
+                if re.match(r'[a-zA-Z0-9-_]+="[a-zA-Z0-9-_]+"', args[i]):
                     new_instance.__setattr__(
                         args[i].split("=")[0], args[i].split("=")[1].strip('"')
                     )
