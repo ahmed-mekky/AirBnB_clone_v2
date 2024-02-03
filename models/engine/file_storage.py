@@ -63,6 +63,8 @@ class FileStorage:
     def delete(self, obj=None):
         """deletes an object from objects"""
         if obj:
-            for objectname in self.__objects:
-                if obj == objectname:
-                    self.__objects.pop(objectname)
+            tmp = {}
+            for key, fs_obj in self.__objects.items():
+                if obj != fs_obj:
+                    tmp[key] = fs_obj
+            self.__objects = tmp
