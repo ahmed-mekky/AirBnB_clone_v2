@@ -135,14 +135,19 @@ class HBNBCommand(cmd.Cmd):
             return
         new_instance = HBNBCommand.classes[args[0]]()
         storage.save()
-        print(new_instance.id)
         if len(args) > 1:
             for i in range(1, len(args)):
-                if re.match(r'[a-zA-Z0-9-_]+="[a-zA-Z0-9-_]+"', args[i]):
-                    new_instance.__setattr__(
-                        args[i].split("=")[0],
-                        args[i].split("=")[1].strip('"').replace("_", " "),
-                    )
+                if re.match(r'[a-zA-Z0-9-_]+=[a-zA-Z0-9-_"]+', args[i]):
+                    attrname = args[i].split("=")[0]
+                    attrvalue = args[i].split("=")[1]
+                    if re.match(r'"[A-Za-z0-9-_.]+"', attrvalue):
+                        attrvalue = attrvalue.strip('"').replace("_", " ")
+                    else:
+                        attrvalue = float(attrvalue)
+                        if attrvalue.is_integer():
+                            attrvalue = int(attrvalue)
+                    new_instance.__setattr__(attrname, attrvalue)
+        print(new_instance.id)
         storage.save()
 
     def help_create(self):
