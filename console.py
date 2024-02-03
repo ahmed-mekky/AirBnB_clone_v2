@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
                 if re.match(r'[a-zA-Z0-9-_]+=[a-zA-Z0-9-_"]+', args[i]):
                     attrname = args[i].split("=")[0]
                     attrvalue = args[i].split("=")[1]
-                    if re.match(r'"[A-Za-z0-9-_.]+"', attrvalue):
+                    if attrvalue[0] == '"' and attrvalue[-1] == '"':
                         attrvalue = attrvalue.strip('"').replace("_", " ")
                     else:
                         attrvalue = float(attrvalue)
