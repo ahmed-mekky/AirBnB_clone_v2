@@ -227,7 +227,7 @@ class HBNBCommand(cmd.Cmd):
 
         if args:
             if getenv("HBNB_TYPE_STORAGE") == "db":
-                print_list.append(str(list(storage.all(args).values())[0]))
+                print_list.append(storage.all(args))
             else:
                 args = args.split(" ")[0]  # remove possible trailing args
                 if args not in HBNBCommand.classes:
