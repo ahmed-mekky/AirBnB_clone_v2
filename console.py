@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+from os import getenv
 import sys
 import re
 from models.base_model import BaseModel
@@ -225,13 +226,16 @@ class HBNBCommand(cmd.Cmd):
         print_list = []
 
         if args:
-            args = args.split(" ")[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage.all().items():
-                if k.split(".")[0] == args:
-                    print_list.append(str(v))
+            if getenv("HBNB_TYPE_STORAGE") == "db":
+                print_list.append(storage.all(args))
+            else:
+                args = args.split(" ")[0]  # remove possible trailing args
+                if args not in HBNBCommand.classes:
+                    print("** class doesn't exist **")
+                    return
+                for k, v in storage.all().items():
+                    if k.split(".")[0] == args:
+                        print_list.append(str(v))
         else:
             for k, v in storage.all().items():
                 print_list.append(str(v))

@@ -43,14 +43,13 @@ class DBStorage:
 
     def all(self, cls=None):
         tmp = {}
-        if cls:
+        if cls is not None:
             for obj in self.__session.query(cls).all():
                 key = f"{obj.__class__.name}.{obj.id}"
                 tmp[key] = obj
         else:
             for classname in classes:
-                print(classes[classname])
-                for obj in self.__session.query(City).all():
+                for obj in self.__session.query(classname).all():
                     key = f"{obj.__class__.name}.{obj.id}"
                     tmp[key] = obj
         return tmp
