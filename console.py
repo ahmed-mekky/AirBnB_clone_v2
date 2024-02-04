@@ -134,7 +134,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args[0]]()
-        storage.save()
         if len(args) > 1:
             for i in range(1, len(args)):
                 if re.match(r'[a-zA-Z0-9-_]+=[a-zA-Z0-9-_"]+', args[i]):
@@ -148,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
                             attrvalue = int(attrvalue)
                     new_instance.__setattr__(attrname, attrvalue)
         print(new_instance.id)
-        storage.save()
+        storage.new(new_instance)
 
     def help_create(self):
         """Help information for the create method"""
