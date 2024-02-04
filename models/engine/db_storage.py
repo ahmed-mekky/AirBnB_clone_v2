@@ -44,7 +44,8 @@ class DBStorage:
     def all(self, cls=None):
         tmp = {}
         if cls is not None:
-            for obj in self.__session.query(cls).all():
+            print(cls, type(cls))
+            for obj in self.__session.query(classes[cls]).all():
                 key = f"{obj.__class__.name}.{obj.id}"
                 tmp[key] = obj
         else:
