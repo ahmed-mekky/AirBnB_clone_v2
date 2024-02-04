@@ -52,6 +52,8 @@ class BaseModel:
         dictionary["updated_at"] = self.updated_at.isoformat()
         if dictionary.get("_sa_instance_state"):
             dictionary.pop("_sa_instance_state")
+        for value in dictionary.values():
+            print(value)
         return dictionary
 
     def delete(self):
