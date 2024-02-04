@@ -39,7 +39,7 @@ class DBStorage:
             pool_pre_ping=True,
         )
         if getenv("HBNB_ENV") == "test":
-            Base.metaData.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         tmp = {}
@@ -48,8 +48,9 @@ class DBStorage:
                 key = f"{obj.__class__.name}.{obj.id}"
                 tmp[key] = obj
         else:
-            for classname in classes.keys():
-                for obj in self.__session.query(classes[classname]).all():
+            for classname in classes:
+                print(classes[classname])
+                for obj in self.__session.query(City).all():
                     key = f"{obj.__class__.name}.{obj.id}"
                     tmp[key] = obj
         return tmp
